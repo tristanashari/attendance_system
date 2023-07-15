@@ -3,6 +3,7 @@ import { Login } from "./components/mainComponents/Login";
 import { HomeAdmin } from "./components/mainComponents/HomeAdmin";
 import { HomeEmployee } from "./components/mainComponents/HomeEmployee";
 import { AddEmployeeMobile } from "./components/mainComponents/AddEmployeeMobile";
+import { SetPassword } from "./components/mainComponents/SetPassword";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/admin" element={<HomeAdmin />} />
           <Route path="/employee" element={<HomeEmployee />} />
           <Route path="/add-employee" element={<AddEmployeeMobile />} />
+          <Route path="/set-password/:setPasswordToken" element={<SetPassword />} />
         </Routes>
       </Router>
     </div>

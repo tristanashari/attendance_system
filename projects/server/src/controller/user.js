@@ -77,7 +77,9 @@ const employeeRegistration = async(req,res) => {
 }
 
 const setPassword = async(req,res) => {
-    const {token, fullName, dateOfBirth, password} = req.body
+    const {fullName, dateOfBirth, password} = req.body
+    const token = req.query.token
+    console.log(token)
 
     try{
         const userData = await db.User.findOne({where: {
@@ -93,9 +95,9 @@ const setPassword = async(req,res) => {
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password,salt)
 
-        userData.fullName = fullName
-        userData.dateOfBirth = dayjs(dateOfBirth)
-        userData.password = hashPassword
+        if (fullName) {userData.fullName = fullName}
+        if (dateOfBirth) {userData.dateOfBirth = dayjs(dateOfBirth)}
+        if (hashPassword) {userData.password = hashPassword}
         userData.setPasswordToken = null
         await userData.save()
 
@@ -103,6 +105,7 @@ const setPassword = async(req,res) => {
             message:"Successfully set password"
         })
     }catch(error){
+        console.log(error)
         res.status(500).send({
             message:"server error",
             error: error.message
