@@ -1,9 +1,14 @@
 const db = require("../../models")
 const transporter = require("../helpers/transporter")
+const bcrypt = require("bcryptjs")
+const dayjs = require("dayjs")
+const jwt = require("jsonwebtoken")
 const handlebars = require("handlebars")
 const fs = require("fs")
 const crypto = require("crypto")
 
+
+const secretKey = process.env.JWT_SECRET_KEY
 
 const employeeRegistration = async(req,res) => {
     const t = await db.sequelize.transaction()
@@ -71,7 +76,84 @@ const employeeRegistration = async(req,res) => {
     }
 }
 
+const setPassword = async(req,res) => {
+    const {token, fullName, dateOfBirth, password} = req.body
+
+    try{
+        const userData = await db.User.findOne({where: {
+            setPasswordToken: token
+        }})
+
+        if(!userData){
+            return res.status(400).send({
+                message: "invalid token"
+            })
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashPassword = await bcrypt.hash(password,salt)
+
+        userData.fullName = fullName
+        userData.dateOfBirth = dayjs(dateOfBirth)
+        userData.password = hashPassword
+        userData.setPasswordToken = null
+        await userData.save()
+
+        res.status(200).send({
+            message:"Successfully set password"
+        })
+    }catch(error){
+        res.status(500).send({
+            message:"server error",
+            error: error.message
+        })
+    }
+
+}
+
+const login = async(req,res) => {
+    const {email, password} = req.body
+
+    try{
+        const userData = await db.User.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if(!userData){
+            return res.status(400).send({
+                message:"Login failed. Email not found"
+            })
+        }
+
+        const isValid = await bcrypt.compare(password, userData.password)
+        if(!isValid){
+            return res.status(400).send({
+                message: "Login failed. Incorrect Password"
+            })
+        }
+
+        const payload = { id: userData.id, role:userData.roleId}
+        const token = jwt.sign(payload, secretKey, {
+            expiresIn: "24h"
+        })
+
+        res.status(200).send({
+            message: "You are logged in",
+            data: userData,
+            accessToken: token
+        })
+        
+
+    }catch(error){
+        res.status(500).send({
+            message: "server error",
+            error: error.message
+        })
+    }
+}
 
 module.exports = {
-    employeeRegistration
+    employeeRegistration, setPassword, login
 }

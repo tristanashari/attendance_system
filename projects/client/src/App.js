@@ -1,20 +1,18 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Login } from "./components/mainComponents/Login";
+import { HomeAdmin } from "./components/mainComponents/HomeAdmin";
+import { HomeEmployee } from "./components/mainComponents/HomeEmployee";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/greetings`
-      );
-      setMessage(data?.message || "");
-    })();
-  }, []);
   return (
     <div className="App">
-      <div className="text-blue-500">Test</div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/admin" element={<HomeAdmin />} />
+          <Route path="/employee" element={<HomeEmployee />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
