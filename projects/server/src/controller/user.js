@@ -46,7 +46,7 @@ const employeeRegistration = async(req,res) => {
 
     await db.Salary.create({
         userId: newUser.id,
-        salary: salary
+        salary: Number(salary)
     }, {
         transaction: t
     })
