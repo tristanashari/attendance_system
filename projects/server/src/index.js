@@ -2,15 +2,39 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
+const cron = require("node-cron")
+const db = require("../models")
 
 const userRoutes = require("./routes/user")
-const attendanceRoutes = require("./routes/attendance")
+const attendanceRoutes = require("./routes/attendance");
+const dayjs = require("dayjs");
 
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+const createAttendanceLog = async() => {
+  try{
+    const users = await db.User.findAll()
+    const currentDate = dayjs()
+
+    for(const user of users){
+      await db.Attendance.create({
+        userId: user.id,
+        clockIn: "",
+        clockOut: "",
+        date: currentDate,
+        status: "Full Day Salary Cut"
+      })
+    }
+  } catch(error){
+    console.log(error)
+  }
+}
+
+cron.schedule('0 0 * * 1-5', createAttendanceLog)
 
 //#region API ROUTES
 app.use("/api", userRoutes)

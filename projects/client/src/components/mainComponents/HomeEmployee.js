@@ -5,6 +5,8 @@ import clockInPic from "../../assets/At the office-bro.png"
 import dayjs from "dayjs"
 import axios from '../../api/axios'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
+import { AttendanceLogDesktop } from '../subComponents/HomeEmployee/AttendanceLogDesktop'
+import { Link } from 'react-router-dom'
 
 export const HomeEmployee = () => {
     const currentDate = dayjs().format("DD MMM YYYY")
@@ -19,9 +21,16 @@ export const HomeEmployee = () => {
         const interval = setInterval(() => {
           setCurrentTime(dayjs().format('HH:mm'));
         }, 1000);
+
+        if(currentTime === "00:00"){
+            setAttendanceState("You haven't clocked in for today")
+            setClockIn(false)
+            setClockOut(true)
+            setPicture(clockOutPic)
+        }
     
         return () => clearInterval(interval);
-      }, []);
+      }, [currentTime]);
 
     const handleClockIn = async() => {
         if(!clockIn){
@@ -78,7 +87,7 @@ export const HomeEmployee = () => {
     </div>
     <div className="w-full lg:hidden h-10 flex justify-center items-center drop-shadow-md bg-white">
         <div className="w-72 flex justify-between px-2">
-            <div className="w-full font-inter text-md">Attendance Log</div>
+            <Link to="/attendance-log" className="lg:hidden w-full"><div className="w-full font-inter text-md">Attendance Log</div></Link>
             <div><ChevronRightIcon className="h-6 w-6"/></div>
         </div>
     </div>
@@ -92,6 +101,7 @@ export const HomeEmployee = () => {
         <button className={`h-10 rounded-md font-inter drop-shadow-md w-32 ${clockOut ? "bg-gray-disabled text-gray-disabled-text" : "bg-red-600 text-white"}`} onClick={handleClockOut}>Clock Out</button>
         </div>
     </div>
+    <AttendanceLogDesktop />
     </>
   )
 }

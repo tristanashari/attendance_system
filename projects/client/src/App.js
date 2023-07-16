@@ -4,6 +4,7 @@ import { HomeAdmin } from "./components/mainComponents/HomeAdmin";
 import { HomeEmployee } from "./components/mainComponents/HomeEmployee";
 import { AddEmployeeMobile } from "./components/mainComponents/AddEmployeeMobile";
 import { SetPassword } from "./components/mainComponents/SetPassword";
+import { AttendanceLogMobile } from "./components/mainComponents/AttendanceLogMobile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/employee" element={<HomeEmployee />} />
           <Route path="/add-employee" element={<AddEmployeeMobile />} />
           <Route path="/set-password/:setPasswordToken" element={<SetPassword />} />
+          <Route path="/attendance-log" element={<AttendanceLogMobile />} />
         </Routes>
       </Router>
     </div>
