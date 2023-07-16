@@ -135,6 +135,7 @@ export const SetPassword = () => {
                     <div className="font-inter text-black">Date of Birth</div>
                       <input
                         onChange={handleForm}
+                        placeholder="YYYY-MM-DD"
                         type="text"
                         name="dateOfBirth"
                         className="w-full rounded-md bg-blue-secondary border-none mb-3"

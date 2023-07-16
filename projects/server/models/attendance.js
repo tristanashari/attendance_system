@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     clockIn: DataTypes.STRING,
     clockOut: DataTypes.STRING,
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     status: DataTypes.STRING
   }, {
     sequelize,

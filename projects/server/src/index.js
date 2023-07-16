@@ -4,6 +4,7 @@ const cors = require("cors");
 const { join } = require("path");
 
 const userRoutes = require("./routes/user")
+const attendanceRoutes = require("./routes/attendance")
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //#region API ROUTES
 app.use("/api", userRoutes)
+app.use("/api", attendanceRoutes)
 // ===========================
 // NOTE : Add your routes here
 
