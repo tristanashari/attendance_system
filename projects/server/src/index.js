@@ -7,6 +7,7 @@ const db = require("../models")
 
 const userRoutes = require("./routes/user")
 const attendanceRoutes = require("./routes/attendance");
+const salaryRoutes = require("./routes/salary")
 const dayjs = require("dayjs");
 
 const PORT = process.env.PORT || 8000;
@@ -39,6 +40,7 @@ cron.schedule('0 0 * * 1-5', createAttendanceLog)
 //#region API ROUTES
 app.use("/api", userRoutes)
 app.use("/api", attendanceRoutes)
+app.use("/api", salaryRoutes)
 // ===========================
 // NOTE : Add your routes here
 

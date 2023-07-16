@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.1",
+    "@develoka/angka-rupiah-js": "^1.0.3",
     "@heroicons/react": "^2.0.18",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",

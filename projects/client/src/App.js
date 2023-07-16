@@ -5,6 +5,7 @@ import { HomeEmployee } from "./components/mainComponents/HomeEmployee";
 import { AddEmployeeMobile } from "./components/mainComponents/AddEmployeeMobile";
 import { SetPassword } from "./components/mainComponents/SetPassword";
 import { AttendanceLogMobile } from "./components/mainComponents/AttendanceLogMobile";
+import { Payroll } from "./components/mainComponents/Payroll";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/add-employee" element={<AddEmployeeMobile />} />
           <Route path="/set-password/:setPasswordToken" element={<SetPassword />} />
           <Route path="/attendance-log" element={<AttendanceLogMobile />} />
+          <Route path="/payroll" element={<Payroll />} />
         </Routes>
       </Router>
     </div>

@@ -127,6 +127,39 @@ const getAttendance = async(req,res) => {
         })
     }
 }
+
+const getAllAttendance = async(req,res) => {
+    const currentDate = dayjs();
+    const endDate = currentDate.format("YYYY-MM-DD")
+    const startDate = currentDate.subtract(1, "year").format("YYYY-MM-DD");
+
+    const userId = req.user.id
+    try{
+        const attendanceData = await db.Attendance.findAll({where: {
+            userId: userId,
+            date: {
+                [db.Sequelize.Op.between]: [startDate, endDate]
+            }
+        }  
+        })
+
+        if(!attendanceData){
+            return res.status(400).send({
+                message: "Attendance Log Not Found"
+            })
+        }
+        res.status(200).send({
+            message: "Here is your attendance log",
+            data: attendanceData,
+        })
+
+    }catch(error){
+        res.status(500).send({
+            message: "server error",
+            error: error.message
+        })
+    }
+}
 module.exports = {
-    clockIn, clockOut, getAttendance
+    clockIn, clockOut, getAttendance, getAllAttendance
 }

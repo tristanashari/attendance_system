@@ -29,8 +29,6 @@ export const AttendanceLogDesktop = () => {
           }).then((response) => {setAttendanceLog(response.data); setTotalPage(Math.ceil(response.data.pagination?.totalData / 10))}).catch((error) => {console.log(error)})
     }, [authToken, startDate, endDate, statusValue, orderValue, currentPage])
 
-    console.log(attendanceLog)
-
     const handleStatus = (value) => {
         setStatusValue(value)
     }
@@ -79,7 +77,7 @@ export const AttendanceLogDesktop = () => {
             <div className="bg-white col-span-1 flex justify-center font-inter items-center">Status</div>
         </div>
         {attendanceLog.data?.map((data) => (
-            <div className="w-9/12 h-10 bg-white grid grid-cols-5">
+        <div className="w-9/12 h-10 bg-white grid grid-cols-5">
             <div className="bg-white col-span-1 flex justify-center font-miriam items-center">{dayjs(data.date).format("DD MMM YYYY").toUpperCase()}</div>
             <div className="bg-white col-span-1 flex justify-center font-miriam items-center text-blue-background">09:00-17:00</div>
             <div className="bg-white col-span-1 flex justify-center font-miriam items-center text-blue-600">{data.clockIn}</div>

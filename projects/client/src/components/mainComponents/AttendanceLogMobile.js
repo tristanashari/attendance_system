@@ -30,8 +30,6 @@ export const AttendanceLogMobile = () => {
           }).then((response) => {setAttendanceLog(response.data); setTotalPage(Math.ceil(response.data.pagination?.totalData / 10))}).catch((error) => {console.log(error)})
     }, [authToken, startDate, endDate, statusValue, orderValue, currentPage])
 
-    console.log(attendanceLog)
-
     const handleStatus = (value) => {
         setStatusValue(value)
     }
