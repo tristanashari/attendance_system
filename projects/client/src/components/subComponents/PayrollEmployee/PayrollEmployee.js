@@ -25,9 +25,7 @@ export const PayrollEmployee = () => {
     }, [authToken])
 
     const uniqueMonthsAndYears = [
-        ...new Set(
-          attendanceLog.data?.map((data) => dayjs(data?.date).format("MMMM YYYY"))
-        )
+        ...new Set(attendanceLog.data?.map((data) => dayjs(data?.date).format("MMMM YYYY")))
       ];
   return (
     <>
@@ -58,7 +56,6 @@ export const PayrollEmployee = () => {
             let halfDayDeduction = salary / 21 / 2
             let fullDayDeduction = salary / 21
             let totalSalary = 0
-
             attendanceLog.data?.map((data) => {
                 if (dayjs(data?.date).format("MMMM YYYY") === month) {
                     if (data?.status === "Half Day Salary Cut") {
