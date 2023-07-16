@@ -13,10 +13,10 @@ export const AddEmployeeMobile = () => {
         try {
           const response = await axios.post("/auth/employee-registration", values, {
             headers: { "Content-Type": "application/json" },
-          });
+          })
     
           if (response.status === 200) {
-            setStatus({ success: true });
+            setStatus({ success: true })
             setValues({
               email: "",
               salary: "",
@@ -28,19 +28,19 @@ export const AddEmployeeMobile = () => {
             });
             setErrMsg("")
           } else {
-            throw new Error("Registration Failed");
+            throw new Error("Registration Failed")
           }
         } catch (err) {
           if (!err.response) {
-            setErrMsg("No Server Response");
+            setErrMsg("No Server Response")
             setValues({
               email: "",
               salary: "",
             });
           } else if (err.response?.data?.message === "email already used") {
-            setErrMsg("Email is already used");
+            setErrMsg("Email is already used")
           } else {
-            setErrMsg("Registration Failed");
+            setErrMsg("Registration Failed")
           }
         }
       };
@@ -60,8 +60,8 @@ export const AddEmployeeMobile = () => {
       });
     
       const handleForm = (event) => {
-        const { target } = event;
-        formik.setFieldValue(target.name, target.value);
+        const { target } = event
+        formik.setFieldValue(target.name, target.value)
       };
   return (
     <>

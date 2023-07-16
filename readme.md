@@ -1,6 +1,6 @@
 # Purwadhika Selection Test: Attendance System Web App
 
-This is monorepo contain frontend project using ReactJS and backend project using ExpressJS.
+This is monorepo contain frontend project using ReactJS and backend project using ExpressJS. Project description read below.
 
 ## Available Scripts
 

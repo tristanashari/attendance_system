@@ -24,15 +24,11 @@ export const PayrollEmployee = () => {
           }).then((response) => {setSalary(response.data?.data?.salary)}).catch((error) => {console.log(error)})
     }, [authToken])
 
-    console.log(salary)
-    console.log(attendanceLog)
     const uniqueMonthsAndYears = [
         ...new Set(
           attendanceLog.data?.map((data) => dayjs(data?.date).format("MMMM YYYY"))
         )
       ];
-      
-      console.log(uniqueMonthsAndYears);
   return (
     <>
     <div className="w-full h-auto flex items-center justify-center mt-20">

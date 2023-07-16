@@ -1,14 +1,21 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState } from 'react'
 import logoNavbar from "../../../assets/AttendeeNav.png"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { useNavigate } from 'react-router-dom'
 
 export const NavbarEmployee = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navigate = useNavigate()
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const toggleMobileMenu = () => {
-      setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
+      setIsMobileMenuOpen(!isMobileMenuOpen)
+    }
+
+    const handleLogOut = () => {
+      localStorage.removeItem('token')
+      navigate("/");
+    }
   
     return (
       <nav className="bg-white p-4">
@@ -43,7 +50,7 @@ export const NavbarEmployee = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="text-red-600 font-inter hover:text-gray-200">
+                  <a href="/" onClick={handleLogOut} className="text-red-600 font-inter hover:text-gray-200">
                     Log Out
                   </a>
                 </li>

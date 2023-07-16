@@ -79,7 +79,6 @@ const employeeRegistration = async(req,res) => {
 const setPassword = async(req,res) => {
     const {fullName, dateOfBirth, password} = req.body
     const token = req.query.token
-    console.log(token)
 
     try{
         const userData = await db.User.findOne({where: {
@@ -157,6 +156,22 @@ const login = async(req,res) => {
     }
 }
 
+const getUsers = async(req,res) => {
+    try{
+        const allUsers = await db.User.findAll()
+
+        res.status(200).send({
+            message:"All Users",
+            data: allUsers
+        })
+    }catch(error){
+        res.status(500).send({
+            message: "server error",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
-    employeeRegistration, setPassword, login
+    employeeRegistration, setPassword, login, getUsers
 }
