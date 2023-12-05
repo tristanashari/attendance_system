@@ -24,7 +24,7 @@ module.exports = {
       },
       setPasswordToken: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull:true,
         unique:true
       },
       fullName: {

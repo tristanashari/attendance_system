@@ -8,6 +8,7 @@ const db = require("../models")
 const userRoutes = require("./routes/user")
 const attendanceRoutes = require("./routes/attendance");
 const salaryRoutes = require("./routes/salary")
+const authRoutes = require("./routes/auth")
 const dayjs = require("dayjs");
 
 const PORT = process.env.PORT || 8000;
@@ -18,7 +19,11 @@ app.use(express.json());
 
 const createAttendanceLog = async() => {
   try{
-    const users = await db.User.findAll()
+    const users = await db.User.findAll({
+      where: {
+        roleId: 2
+      }
+    })
     const currentDate = dayjs()
 
     for(const user of users){
@@ -35,9 +40,10 @@ const createAttendanceLog = async() => {
   }
 }
 
-cron.schedule('0 0 * * 1-5', createAttendanceLog)
+cron.schedule('16 12 * * *', createAttendanceLog)
 
 //#region API ROUTES
+app.use("/api", authRoutes)
 app.use("/api", userRoutes)
 app.use("/api", attendanceRoutes)
 app.use("/api", salaryRoutes)
